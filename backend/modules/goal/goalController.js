@@ -1,6 +1,6 @@
 const expressAsyncHandler = require('express-async-handler');
-const { UnprocessableEntityError } = require('../helpers/errors');
-const Goal = require('../models/goalModel');
+const { UnprocessableEntityError } = require('../../helpers/errors');
+const Goal = require('./goalModel');
 
 const getGoals = expressAsyncHandler(async (req, res) => {
 	const goals = await Goal.find();
@@ -14,7 +14,8 @@ const getGoals = expressAsyncHandler(async (req, res) => {
 
 const setGoal = expressAsyncHandler(async (req, res) => {
 	const goal = await Goal.create({
-		text: req.body.text
+		text: req.body.text,
+		user: req.user._id
 	});
 
 	res.json({

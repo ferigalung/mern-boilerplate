@@ -1,8 +1,10 @@
 const errorHandler = (err, req, res, next) => {
-	res.status(err.code || 500).json({
+	console.log(err);
+	const statusCode = err.code < 511 ? err.code : 500;
+	res.status(statusCode).json({
 		success: false,
 		data: err.data || null,
-		msg: err.msg || 'Unknown Error!',
+		msg: err.msg || 'Internal Server Error!',
 		stack: process.env.NODE_ENV === 'production' ? undefined : err.stack
 	});
 	next();
