@@ -11,13 +11,13 @@ const signJwt = async id => {
 		.sign(secret);
 };
 
-const verifyJwt = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
+	const token = req.headers.authorization?.replace('Bearer ', '');
+	if(!token)
+		next(new UnauthorizedError('Unauthorized!'));
+		
 	try {
-		const jwt = req.headers.authorization?.replace('Bearer ', '');
-		if(!jwt)
-			next(new UnauthorizedError('Unauthorized!'));
-
-		const verified = await jose.jwtVerify(jwt, secret);
+		const verified = await jose.jwtVerify(token, secret);
 		const user = await User.findById(verified.payload.id, '_id name email');
 		req.user = user;
 	} catch (err) {
@@ -31,5 +31,5 @@ const verifyJwt = async (req, res, next) => {
 
 module.exports = {
 	signJwt,
-	verifyJwt
+	verifyToken
 };

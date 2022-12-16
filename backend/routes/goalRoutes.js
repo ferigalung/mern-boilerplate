@@ -1,11 +1,11 @@
 const express = require('express');
-const { verifyJwt } = require('../helpers/auth/jwtAuth');
+const { verifyToken } = require('../helpers/auth/jwtAuth');
 const router = express.Router();
 const {getGoals, updateGoal, setGoal, deleteGoal} = require('../modules/goal/goalController');
 
-router.get('/', verifyJwt, getGoals);
-router.post('/', verifyJwt, setGoal);
-router.put('/:id', verifyJwt, updateGoal);
-router.delete('/:id', verifyJwt, deleteGoal);
+router.get('/', verifyToken, getGoals);
+router.post('/', verifyToken, setGoal);
+router.put('/:id', verifyToken, updateGoal);
+router.delete('/:id', verifyToken, deleteGoal);
 
 module.exports = router;
