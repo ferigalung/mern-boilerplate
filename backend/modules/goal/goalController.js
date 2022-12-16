@@ -26,14 +26,12 @@ const setGoal = expressAsyncHandler(async (req, res) => {
 });
 
 const updateGoal = expressAsyncHandler(async (req, res) => {
-	
 	const goal = await Goal.findById(req.params.id);
-	if(!goal) {
+	if(!goal || goal.user.toString() !== req.user._id.toString()) {
 		throw new UnprocessableEntityError('goal not found');
 	}
-	const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true});
-	console.log(updatedGoal);
 
+	const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true});
 	res.json({
 		success: true,
 		data: updatedGoal,
@@ -43,7 +41,7 @@ const updateGoal = expressAsyncHandler(async (req, res) => {
 
 const deleteGoal = expressAsyncHandler(async (req, res) => {
 	const goal = await Goal.findById(req.params.id);
-	if(!goal) {
+	if(!goal || goal.user.toString() !== req.user._id.toString()) {
 		throw new UnprocessableEntityError('goal not found');
 	}
 	await Goal.deleteOne({_id: req.params.id});

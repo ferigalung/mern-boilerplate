@@ -1,5 +1,4 @@
 const errorHandler = (err, req, res, next) => {
-	console.log(err);
 	const statusCode = err.code < 511 ? err.code : 500;
 	res.status(statusCode).json({
 		success: false,
