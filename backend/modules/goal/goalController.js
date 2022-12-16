@@ -3,7 +3,7 @@ const { UnprocessableEntityError } = require('../../helpers/errors');
 const Goal = require('./goalModel');
 
 const getGoals = expressAsyncHandler(async (req, res) => {
-	const goals = await Goal.find();
+	const goals = await Goal.find({user: req.user._id});
 
 	res.json({
 		success: true,

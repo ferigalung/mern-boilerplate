@@ -14,9 +14,10 @@ const registerUser = expressAsyncHandler(async (req, res) => {
 		}
 	});
 
+	const token = await signJwt(user._doc._id);
 	res.json({
 		success: true,
-		data: {...user, password: undefined},
+		data: {...user._doc, password: undefined, token},
 		msg: 'Register User'
 	});
 });
