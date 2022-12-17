@@ -6,6 +6,7 @@ import authService from '../auth/authService'
 const user = JSON.parse(localStorage.getItem('user'))
 
 // Register user
+// createAsyncThunk is somewhat similar to expressAsyncHandler
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
     try {
         return authService.register(user)
