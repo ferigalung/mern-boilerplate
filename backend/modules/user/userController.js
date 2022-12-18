@@ -5,6 +5,10 @@ const argon2 = require('argon2');
 const {signJwt} = require('../../helpers/auth/jwtAuth');
 
 const registerUser = expressAsyncHandler(async (req, res) => {
+	const {name, email, password} = req.body;
+	if(!name || !email || !password) {
+		throw new UnprocessableEntityError('Please enter all field');
+	}
 	const user = await User.create({
 		...req.body,
 		password: await argon2.hash(req.body.password)

@@ -7,7 +7,7 @@ const API_URL = '/api/users/v1/'
 const register = async (userData) => {
     const response = await axios.post(API_URL, userData)
 
-    if(response.data) {
+    if(response.data?.data) {
         localStorage.setItem('user', JSON.stringify(response.data?.data))
     }
 

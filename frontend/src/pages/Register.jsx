@@ -56,7 +56,7 @@ function Register() {
     e.preventDefault()
 
     if(password !== confirmPassword) {
-      return toast.error('Password do not match')
+      return toast.error('Password did not match!');
     }
 
     const userData = {

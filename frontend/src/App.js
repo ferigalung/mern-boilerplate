@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Header from './components/Header'
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // from App.js, we change route by calling the pages component
 // from pages component we manage user input and action to send it to redux store which is located to app/store.js
@@ -23,7 +24,18 @@ function App() {
       </Routes>
     </div>
     </Router>
-    <ToastContainer />
+    <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored"
+      />
     </>
   );
 }

@@ -9,9 +9,9 @@ const user = JSON.parse(localStorage.getItem('user'))
 // createAsyncThunk is somewhat similar to expressAsyncHandler
 export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
     try {
-        return authService.register(user)
+        return await authService.register(user)
     } catch (err) {
-        const message = (err.response && err.response.data && err.response.data?.data?.msg) || err.message || err.toString()
+        const message = err.response.data.msg || err.message || err.toString()
         return thunkAPI.rejectWithValue(message)
     }
 })
