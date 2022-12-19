@@ -16,6 +16,10 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
     }
 })
 
+export const logout = createAsyncThunk('auth/logout', async () => {
+    await authService.logout()
+})
+
 const initialState = {
     user: user || null,
     isError: false,
