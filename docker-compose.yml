@@ -1,0 +1,27 @@
+networks:
+  local:
+    external: true
+
+services:
+  mernapp:
+    build:
+      context: ./backend/server
+      dockerfile: Dockerfile
+    ports:
+      - 443:8000
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: production
+      PORT: 8000
+      JWT_SECRET: cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f59fa6
+      MONGO_URL: mongodb://mongo/mern_boilerplate
+  mongo:
+    image: "mongo:4.4"
+    networks:
+      - local
+    ports:
+      - 27017:27017
+    volumes:
+      - ../mongodb-auth-data:/data
+    restart: always
