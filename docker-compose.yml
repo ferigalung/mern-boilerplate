@@ -5,12 +5,14 @@ networks:
 services:
   mernapp:
     build:
-      context: ./backend/server
+      context: .
       dockerfile: Dockerfile
     ports:
-      - 443:8000
+      - 8000:8000
     depends_on:
       - mongo
+    networks:
+      - local
     environment:
       NODE_ENV: production
       PORT: 8000

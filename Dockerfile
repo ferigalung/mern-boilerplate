@@ -1,8 +1,14 @@
-FROM node:16-alphine
+FROM node:16-alpine
 WORKDIR /app
+
 COPY ./package.json ./package.json
-COPY ./public ./public
-COPY ./src ./src
+COPY ./backend ./backend
+COPY ./frontend ./frontend
+
 RUN npm install
-EXPOSE 3000
+RUN npm install --prefix frontend
+RUN npm run build --prefix frontend
+
+EXPOSE 8000
+
 CMD ["npm","start"]
